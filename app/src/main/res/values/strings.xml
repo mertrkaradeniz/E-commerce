@@ -5,4 +5,7 @@
     <string name="dashboard">Dashboard</string>
     <string name="label">Label</string>
     <string name="profile">Profile</string>
+    <string name="kategori_veya_urun_ara">Kategori veya ürün ara</string>
+    <string name="sırala">Sırala</string>
+    <string name="filtre">Filtre</string>
 </resources>

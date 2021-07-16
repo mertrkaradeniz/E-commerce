@@ -11,6 +11,6 @@
         <item name="colorPrimaryDark">@color/PrimaryDark</item>
         <item name="colorSecondary">@color/Secondary</item>
         <item name="colorControlNormal">@color/white</item>
-        <item name="android:statusBarColor">@color/PrimaryDark</item>
+        <item name="android:statusBarColor">@color/white</item>
     </style>
 </resources>
