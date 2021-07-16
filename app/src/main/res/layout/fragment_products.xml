@@ -139,13 +139,30 @@
                 android:orientation="horizontal"
                 tools:ignore="UseCompoundDrawables">
 
-                <ImageView
-                    android:id="@+id/imgFilter"
+                <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_filter"
-                    app:tint="@color/gray" />
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imgFilter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_filter"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/gray" />
+
+                    <ImageView
+                        android:layout_width="5dp"
+                        android:layout_height="5dp"
+                        android:background="@drawable/view_red_dot"
+                        android:contentDescription="@string/app_name"
+                        android:layout_gravity="end|top"/>
+                </FrameLayout>
 
                 <TextView
                     android:id="@+id/tvFilter"
