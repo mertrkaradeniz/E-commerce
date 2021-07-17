@@ -1,6 +1,9 @@
 package com.example.e_commerce.ui.product
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +14,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.e_commerce.adapters.ProductAdapter
 import com.example.e_commerce.databinding.FragmentProductsBinding
+import com.example.e_commerce.util.NetworkListener
 import com.example.e_commerce.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.*
 
 @AndroidEntryPoint
 class ProductsFragment : Fragment() {
@@ -22,6 +30,8 @@ class ProductsFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: ProductViewModel by viewModels()
     private val productAdapter: ProductAdapter by lazy { ProductAdapter() }
+    private lateinit var networkListener: NetworkListener
+    private lateinit var timer: Timer
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,8 +39,57 @@ class ProductsFragment : Fragment() {
     ): View {
         _binding = FragmentProductsBinding.inflate(inflater, container, false)
         setupRecyclerView()
-        getLocalData()
+        setupNetworkListener()
+        setupSearch()
         return binding.root
+    }
+
+    private fun setupSearch() {
+        binding.etSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s.toString().trim().isNotEmpty()) {
+                    searchThroughDatabase(s.toString())
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (s.toString().trim().isNotEmpty()) {
+                    searchThroughDatabase(s.toString())
+                } else {
+                    getLocalData()
+                }
+            }
+        })
+    }
+
+    private fun searchThroughDatabase(query: String) {
+        val searchQuery = "%$query%"
+        viewModel.searchProductOrCategory(searchQuery).observe(viewLifecycleOwner, { result ->
+            result?.let {
+                productAdapter.differ.submitList(it)
+            }
+        })
+    }
+
+    private fun setupNetworkListener() {
+        lifecycleScope.launch {
+            networkListener = NetworkListener()
+            networkListener.checkNetworkAvailability(requireContext())
+                .collect { status ->
+                    if (!status) {
+                        Toast.makeText(
+                            requireContext(),
+                            "No Internet Connection.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    getLocalData()
+                }
+        }
     }
 
     private fun getLocalData() {

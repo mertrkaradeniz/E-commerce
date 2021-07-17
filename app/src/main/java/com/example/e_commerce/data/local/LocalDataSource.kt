@@ -28,4 +28,8 @@ class LocalDataSource @Inject constructor(
         productDao.deleteAllProduct()
     }
 
+    fun searchProductOrCategory(query: String): Flow<List<Product>> {
+        return productDao.searchProductOrCategory(query)
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.example.e_commerce.ui.product
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.e_commerce.data.model.Product
 import com.example.e_commerce.data.repository.ProductRepository
@@ -8,6 +9,7 @@ import com.example.e_commerce.util.InternetConnection
 import com.example.e_commerce.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.lang.Exception
@@ -28,6 +30,10 @@ class ProductViewModel @Inject constructor(
 
     fun insertProducts(list: List<Product>) = viewModelScope.launch(Dispatchers.IO) {
         repository.local.insertProducts(list)
+    }
+
+    fun searchProductOrCategory(query: String): LiveData<List<Product>> {
+        return repository.local.searchProductOrCategory(query).asLiveData()
     }
 
     fun deleteProduct(product: Product) = viewModelScope.launch(Dispatchers.IO) {
