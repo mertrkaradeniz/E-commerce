@@ -1,4 +1,4 @@
-package com.example.e_commerce.utils
+package com.example.e_commerce.util
 
 object Constants {
 

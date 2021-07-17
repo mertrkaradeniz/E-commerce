@@ -7,6 +7,8 @@ class RemoteDataSource @Inject constructor(
     private val productApi: ProductApi
 ){
 
-    suspend fun getProducts(): List<Product> = productApi.getProducts()
+    suspend fun getProducts(): retrofit2.Response<List<Product>> {
+        return productApi.getProducts()
+    }
 
 }
