@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.e_commerce.adapters.ProductAdapter
 import com.example.e_commerce.databinding.FragmentProductsBinding
 import com.example.e_commerce.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProductsFragment : Fragment() {
@@ -27,8 +29,21 @@ class ProductsFragment : Fragment() {
     ): View {
         _binding = FragmentProductsBinding.inflate(inflater, container, false)
         setupRecyclerView()
-        fetchApiData()
+        getLocalData()
         return binding.root
+    }
+
+    private fun getLocalData() {
+        lifecycleScope.launch {
+            viewModel.getProducts.observe(viewLifecycleOwner, { database ->
+                if (database.isNotEmpty()) {
+                    productAdapter.differ.submitList(database)
+                    hideShimmerEffect()
+                } else {
+                    getRemoteData()
+                }
+            })
+        }
     }
 
     private fun setupRecyclerView() {
@@ -40,13 +55,13 @@ class ProductsFragment : Fragment() {
         showShimmerEffect()
     }
 
-    private fun fetchApiData() {
+    private fun getRemoteData() {
         viewModel.getProducts()
         viewModel.productsResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Error -> {
                     hideShimmerEffect()
-                    // load cache
+                    loadDataFromCache()
                     Toast.makeText(
                         requireContext(),
                         response.message.toString(),
@@ -62,6 +77,16 @@ class ProductsFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun loadDataFromCache() {
+        lifecycleScope.launch {
+            viewModel.getProducts.observe(viewLifecycleOwner, { database ->
+                if (database.isNotEmpty()) {
+                    productAdapter.differ.submitList(database)
+                }
+            })
+        }
     }
 
     private fun showShimmerEffect() {
