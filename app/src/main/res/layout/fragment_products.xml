@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -180,21 +179,24 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.todkars.shimmer.ShimmerRecyclerView
         android:id="@+id/rvProducts"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
         android:clipToPadding="false"
+        android:orientation="vertical"
+        android:overScrollMode="never"
         android:paddingStart="12dp"
         android:paddingTop="8dp"
         android:paddingEnd="16dp"
         android:paddingBottom="12dp"
-        android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewActions" />
+        app:layout_constraintTop_toBottomOf="@+id/cardViewActions"
+        app:shimmer_recycler_item_count="4"
+        app:shimmer_recycler_layout="@layout/placeholder_row_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

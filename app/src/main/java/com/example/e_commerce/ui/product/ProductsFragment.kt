@@ -37,7 +37,7 @@ class ProductsFragment : Fragment() {
             layoutManager = GridLayoutManager(requireContext(), 2)
             setHasFixedSize(true)
         }
-        //show shimmer
+        showShimmerEffect()
     }
 
     private fun fetchApiData() {
@@ -45,7 +45,7 @@ class ProductsFragment : Fragment() {
         viewModel.productsResponse.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Error -> {
-                    //hide shimmer
+                    hideShimmerEffect()
                     // load cache
                     Toast.makeText(
                         requireContext(),
@@ -54,14 +54,22 @@ class ProductsFragment : Fragment() {
                     ).show()
                 }
                 is Resource.Loading -> {
-                    //show shimmer
+                    showShimmerEffect()
                 }
                 is Resource.Success -> {
-                    //hide shimmer
+                    hideShimmerEffect()
                     response.data?.let { productAdapter.differ.submitList(it) }
                 }
             }
         })
+    }
+
+    private fun showShimmerEffect() {
+        binding.rvProducts.showShimmer()
+    }
+
+    private fun hideShimmerEffect() {
+        binding.rvProducts.hideShimmer()
     }
 
     override fun onDestroy() {
