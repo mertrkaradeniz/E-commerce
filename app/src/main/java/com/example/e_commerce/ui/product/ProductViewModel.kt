@@ -1,15 +1,13 @@
 package com.example.e_commerce.ui.product
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.e_commerce.data.model.Product
 import com.example.e_commerce.data.repository.ProductRepository
 import com.example.e_commerce.util.InternetConnection
 import com.example.e_commerce.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.lang.Exception
@@ -21,6 +19,26 @@ class ProductViewModel @Inject constructor(
     private val repository: ProductRepository
 ) : AndroidViewModel(application) {
 
+    /** ROOM **/
+    val getProducts: LiveData<List<Product>> = repository.local.getProducts().asLiveData()
+
+    fun insertProduct(product: Product) = viewModelScope.launch(Dispatchers.IO) {
+        repository.local.insertProduct(product)
+    }
+
+    fun insertProducts(list: List<Product>) = viewModelScope.launch(Dispatchers.IO) {
+        repository.local.insertProducts(list)
+    }
+
+    fun deleteProduct(product: Product) = viewModelScope.launch(Dispatchers.IO) {
+        repository.local.deleteProduct(product)
+    }
+
+    fun deleteAllProduct() = viewModelScope.launch(Dispatchers.IO) {
+        repository.local.deleteAllProduct()
+    }
+
+    /** RETROFIT **/
     private val _productsResponse: MutableLiveData<Resource<List<Product>>> = MutableLiveData()
     val productsResponse: LiveData<Resource<List<Product>>> get() = _productsResponse
 
@@ -35,7 +53,7 @@ class ProductViewModel @Inject constructor(
                 val response = repository.remote.getProducts()
                 _productsResponse.value = handleProductsResponse(response)
                 productsResponse.value?.data?.let {
-//                    offlineCacheProducts(it)
+                    insertProducts(it)
                 }
             } catch (e: Exception) {
                 _productsResponse.value = Resource.Error("Products not found.")
