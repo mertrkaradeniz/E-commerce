@@ -15,6 +15,7 @@
     <color name="orange">#F2994A</color>
     <color name="red">#EB5757</color>
     <color name="purple">#BB6BD9</color>
+    <color name="lightGray">#EEEEEE</color>
     <color name="backgroundColor">#0E0C0C</color>
     <color name="filtersBackgroundColor">#4075CD</color>
     <color name="searchIconColor">#191919</color>

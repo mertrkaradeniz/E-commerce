@@ -159,9 +159,9 @@
                     <ImageView
                         android:layout_width="5dp"
                         android:layout_height="5dp"
+                        android:layout_gravity="end|top"
                         android:background="@drawable/view_red_dot"
-                        android:contentDescription="@string/app_name"
-                        android:layout_gravity="end|top"/>
+                        android:contentDescription="@string/app_name" />
                 </FrameLayout>
 
                 <TextView
@@ -185,12 +185,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="0dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginBottom="0dp"
         android:clipToPadding="false"
-        android:paddingTop="16dp"
-        android:paddingBottom="20dp"
+        android:paddingStart="12dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="12dp"
+        android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
