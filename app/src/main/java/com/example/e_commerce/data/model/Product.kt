@@ -1,8 +1,13 @@
 package com.example.e_commerce.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.example.e_commerce.util.Constants.PRODUCTS_TABLE
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = PRODUCTS_TABLE)
 data class Product(
+    @PrimaryKey
     @SerializedName("id")
     val id: Int,
     @SerializedName("title")
