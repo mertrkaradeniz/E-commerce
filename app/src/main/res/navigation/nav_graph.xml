@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/productsFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/productsFragment"
@@ -11,8 +11,8 @@
         android:label="Products"
         tools:layout="@layout/fragment_products" >
         <action
-            android:id="@+id/action_productsFragment_to_productFilterBottomSheet"
-            app:destination="@id/productFilterBottomSheet" />
+            android:id="@+id/action_productsFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -29,13 +29,13 @@
         android:name="com.example.e_commerce.ui.label.LabelFragment"
         android:label="Label"
         tools:layout="@layout/fragment_label" />
-    <dialog
-        android:id="@+id/productFilterBottomSheet"
-        android:name="com.example.e_commerce.ui.product.ProductFilterBottomSheet"
-        android:label="product_filter_bottom_sheet"
-        tools:layout="@layout/product_filter_bottom_sheet" >
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.e_commerce.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_productFilterBottomSheet_to_productsFragment"
+            android:id="@+id/action_loginFragment_to_productsFragment"
             app:destination="@id/productsFragment" />
-    </dialog>
+    </fragment>
 </navigation>

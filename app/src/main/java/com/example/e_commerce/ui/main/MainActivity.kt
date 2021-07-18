@@ -2,6 +2,7 @@ package com.example.e_commerce.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -41,6 +42,8 @@ class MainActivity : AppCompatActivity() {
 //        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
-
+    fun hideBottomNavigationView() {
+        binding.bottomNavigationView.visibility = View.GONE
+    }
 
 }

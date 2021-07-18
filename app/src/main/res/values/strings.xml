@@ -19,4 +19,11 @@
     <string name="kadin_giyim">Kadın Giyim</string>
     <string name="erkek_giyim">erkek giyim</string>
     <string name="mucevher">Mücevher</string>
+    <string name="hesabina_giris_yap">Hesabına Giriş Yap</string>
+    <string name="demo_hizligeliyo_com">demo@hizligeliyo.com</string>
+    <string name="password">******</string>
+    <string name="sifremi_unuttum">Şifremi unuttum</string>
+    <string name="giris_yap">Giriş yap</string>
+    <string name="hesabin_yok_mu">Hesabın yok mu?</string>
+    <string name="kaydol">Kaydol</string>
 </resources>

@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/NoActionBarStyle"
         tools:ignore="AllowBackup">
-        <activity android:name=".ui.main.MainActivity">
+        <activity android:name=".ui.main.MainActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
