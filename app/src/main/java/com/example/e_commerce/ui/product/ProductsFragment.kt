@@ -1,27 +1,29 @@
 package com.example.e_commerce.ui.product
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.e_commerce.R
 import com.example.e_commerce.adapters.ProductAdapter
 import com.example.e_commerce.databinding.FragmentProductsBinding
+import com.example.e_commerce.databinding.ProductFilterBottomSheetBinding
 import com.example.e_commerce.util.NetworkListener
 import com.example.e_commerce.util.Resource
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.util.*
+
 
 @AndroidEntryPoint
 class ProductsFragment : Fragment() {
@@ -31,7 +33,9 @@ class ProductsFragment : Fragment() {
     private val viewModel: ProductViewModel by viewModels()
     private val productAdapter: ProductAdapter by lazy { ProductAdapter() }
     private lateinit var networkListener: NetworkListener
-    private lateinit var timer: Timer
+    private lateinit var productBottomSheetDialog: BottomSheetDialog
+    private lateinit var bottomSheetBinding: ProductFilterBottomSheetBinding
+    private var filterCategory: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +45,134 @@ class ProductsFragment : Fragment() {
         setupRecyclerView()
         setupNetworkListener()
         setupSearch()
+        setupListener()
         return binding.root
+    }
+
+    private fun setupListener() {
+        binding.llFilter.setOnClickListener {
+            setupBottomSheetDialog()
+        }
+    }
+
+    private fun setupBottomSheetDialog() {
+        productBottomSheetDialog = BottomSheetDialog(requireContext())
+        bottomSheetBinding = ProductFilterBottomSheetBinding.inflate(
+            layoutInflater,
+            layoutInflater.inflate(
+                R.layout.product_filter_bottom_sheet,
+                null as ViewGroup?
+            ) as ViewGroup?,
+            false
+        )
+        productBottomSheetDialog.setContentView(bottomSheetBinding.root)
+        setupBottomSheetListeners()
+        val frameLayout: FrameLayout? = productBottomSheetDialog.findViewById(
+            com.google.android.material.R.id.design_bottom_sheet
+        )
+        if (frameLayout != null) {
+            val bottomSheetBehavior = BottomSheetBehavior.from<View>(frameLayout)
+            setupFullHeight(frameLayout)
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+        productBottomSheetDialog.show()
+    }
+
+    private fun setupBottomSheetListeners() {
+        bottomSheetBinding.apply {
+            imgClose.setOnClickListener { productBottomSheetDialog.dismiss() }
+            tvMensClothing.setOnClickListener {
+                filterCategory = "men's clothing"
+                setDefaultTextColor()
+                bottomSheetBinding.tvMensClothing.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.black
+                    )
+                )
+            }
+            tvWomensClothing.setOnClickListener {
+                filterCategory = "women's clothing"
+                setDefaultTextColor()
+                bottomSheetBinding.tvWomensClothing.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.black
+                    )
+                )
+            }
+            tvJewelery.setOnClickListener {
+                filterCategory = "jewelery"
+                setDefaultTextColor()
+                bottomSheetBinding.tvJewelery.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.black
+                    )
+                )
+            }
+            tvTElectronics.setOnClickListener {
+                filterCategory = "electronics"
+                setDefaultTextColor()
+                bottomSheetBinding.tvTElectronics.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.black
+                    )
+                )
+            }
+            tvHomeDecoration.setOnClickListener {
+                setDefaultTextColor()
+                bottomSheetBinding.tvHomeDecoration.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.black
+                    )
+                )
+            }
+            tvLife.setOnClickListener {
+                setDefaultTextColor()
+                bottomSheetBinding.tvLife.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.black
+                    )
+                )
+            }
+            btnFilter.setOnClickListener {
+                if (filterCategory.isEmpty()) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Lütfen bir kategori seçiniz!",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                } else {
+                    viewModel.filterProductByCategory(filterCategory)
+                        .observe(viewLifecycleOwner, { result ->
+                            result?.let { productAdapter.differ.submitList(it) }
+                        })
+                    productBottomSheetDialog.dismiss()
+                }
+            }
+        }
+    }
+
+    private fun setDefaultTextColor() {
+        bottomSheetBinding.apply {
+            tvMensClothing.setTextColor(ContextCompat.getColor(requireContext(), R.color.Primary))
+            tvWomensClothing.setTextColor(ContextCompat.getColor(requireContext(), R.color.Primary))
+            tvJewelery.setTextColor(ContextCompat.getColor(requireContext(), R.color.Primary))
+            tvTElectronics.setTextColor(ContextCompat.getColor(requireContext(), R.color.Primary))
+            tvLife.setTextColor(ContextCompat.getColor(requireContext(), R.color.Primary))
+            tvHomeDecoration.setTextColor(ContextCompat.getColor(requireContext(), R.color.Primary))
+        }
+    }
+
+    private fun setupFullHeight(bottomSheet: View) {
+        val layoutParams = bottomSheet.layoutParams
+        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT
+        bottomSheet.layoutParams = layoutParams
     }
 
     private fun setupSearch() {

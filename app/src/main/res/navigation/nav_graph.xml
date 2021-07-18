@@ -9,7 +9,11 @@
         android:id="@+id/productsFragment"
         android:name="com.example.e_commerce.ui.product.ProductsFragment"
         android:label="Products"
-        tools:layout="@layout/fragment_products" />
+        tools:layout="@layout/fragment_products" >
+        <action
+            android:id="@+id/action_productsFragment_to_productFilterBottomSheet"
+            app:destination="@id/productFilterBottomSheet" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.e_commerce.ui.profile.ProfileFragment"
@@ -25,4 +29,13 @@
         android:name="com.example.e_commerce.ui.label.LabelFragment"
         android:label="Label"
         tools:layout="@layout/fragment_label" />
+    <dialog
+        android:id="@+id/productFilterBottomSheet"
+        android:name="com.example.e_commerce.ui.product.ProductFilterBottomSheet"
+        android:label="product_filter_bottom_sheet"
+        tools:layout="@layout/product_filter_bottom_sheet" >
+        <action
+            android:id="@+id/action_productFilterBottomSheet_to_productsFragment"
+            app:destination="@id/productsFragment" />
+    </dialog>
 </navigation>

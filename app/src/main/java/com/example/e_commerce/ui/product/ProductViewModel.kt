@@ -36,6 +36,10 @@ class ProductViewModel @Inject constructor(
         return repository.local.searchProductOrCategory(query).asLiveData()
     }
 
+    fun filterProductByCategory(query: String): LiveData<List<Product>> {
+        return repository.local.filterProductByCategory(query).asLiveData()
+    }
+
     fun deleteProduct(product: Product) = viewModelScope.launch(Dispatchers.IO) {
         repository.local.deleteProduct(product)
     }

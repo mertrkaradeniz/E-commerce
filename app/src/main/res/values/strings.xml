@@ -8,4 +8,15 @@
     <string name="kategori_veya_urun_ara">Kategori veya ürün ara</string>
     <string name="sırala">Sırala</string>
     <string name="filtre">Filtre</string>
+    <string name="kategoriler">Kategoriler</string>
+    <string name="outdoor">Outdoor</string>
+    <string name="kozmatik">Kozmatik</string>
+    <string name="spor">Spor</string>
+    <string name="teknoloji">Teknoloji</string>
+    <string name="ev_dekorasyon">Ev dekorasyon</string>
+    <string name="yasam">Yaşam</string>
+    <string name="filtrele">Filtrele</string>
+    <string name="kadin_giyim">Kadın Giyim</string>
+    <string name="erkek_giyim">erkek giyim</string>
+    <string name="mucevher">Mücevher</string>
 </resources>

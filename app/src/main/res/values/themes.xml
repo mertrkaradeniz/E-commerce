@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/Primary</item>
         <item name="colorPrimaryDark">@color/PrimaryDark</item>
         <item name="colorSecondary">@color/Secondary</item>
+        <item name="android:statusBarColor">@color/white</item>
     </style>
 
     <style name="NoActionBarStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">

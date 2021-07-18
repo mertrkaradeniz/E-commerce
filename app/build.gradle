@@ -41,6 +41,7 @@ android {
 
 dependencies {
 
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     def nav_version = "2.3.5"
     def material_version = "1.4.0"
     def room_version = "2.3.0"
@@ -51,6 +52,7 @@ dependencies {
     def coil_version = "1.2.2"
     def shimmer_version = "0.5.0"
     def shimmer_rv_version = "0.4.1"
+    def custom_bottom_navigation = "1.1.0"
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.core:core-ktx:1.6.0'
@@ -97,5 +99,9 @@ dependencies {
     // Shimmer
     implementation "com.facebook.shimmer:shimmer:$shimmer_version"
     implementation "com.todkars:shimmer-recyclerview:$shimmer_rv_version"
+
+    // Custom bottom navigation
+    implementation "nl.joery.animatedbottombar:library:$custom_bottom_navigation"
+    implementation 'com.github.ibrahimsn98:NiceBottomBar:2.2'
 
 }

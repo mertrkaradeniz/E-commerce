@@ -19,6 +19,9 @@ interface ProductDao {
     @Query("SELECT * FROM products_table WHERE title LIKE :query OR category LIKE :query ORDER BY id ASC")
     fun searchProductOrCategory(query: String): Flow<List<Product>>
 
+    @Query("SELECT * FROM products_table WHERE category LIKE :query ORDER BY id ASC")
+    fun filterProductByCategory(query: String): Flow<List<Product>>
+
     @Delete
     suspend fun deleteProduct(product: Product)
 
