@@ -11,11 +11,16 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.e_commerce.R
 import com.example.e_commerce.adapters.ProductAdapter
 import com.example.e_commerce.databinding.FragmentProductsBinding
 import com.example.e_commerce.databinding.ProductFilterBottomSheetBinding
+import com.example.e_commerce.util.Constants.ELECTRONICS
+import com.example.e_commerce.util.Constants.JEWELERY
+import com.example.e_commerce.util.Constants.MENS_CLOTHING
+import com.example.e_commerce.util.Constants.WOMENS_CLOTHING
 import com.example.e_commerce.util.NetworkListener
 import com.example.e_commerce.util.Resource
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -82,7 +87,7 @@ class ProductsFragment : Fragment() {
         bottomSheetBinding.apply {
             imgClose.setOnClickListener { productBottomSheetDialog.dismiss() }
             tvMensClothing.setOnClickListener {
-                filterCategory = "men's clothing"
+                filterCategory = MENS_CLOTHING
                 setDefaultTextColor()
                 bottomSheetBinding.tvMensClothing.setTextColor(
                     ContextCompat.getColor(
@@ -92,7 +97,7 @@ class ProductsFragment : Fragment() {
                 )
             }
             tvWomensClothing.setOnClickListener {
-                filterCategory = "women's clothing"
+                filterCategory = WOMENS_CLOTHING
                 setDefaultTextColor()
                 bottomSheetBinding.tvWomensClothing.setTextColor(
                     ContextCompat.getColor(
@@ -102,7 +107,7 @@ class ProductsFragment : Fragment() {
                 )
             }
             tvJewelery.setOnClickListener {
-                filterCategory = "jewelery"
+                filterCategory = JEWELERY
                 setDefaultTextColor()
                 bottomSheetBinding.tvJewelery.setTextColor(
                     ContextCompat.getColor(
@@ -112,7 +117,7 @@ class ProductsFragment : Fragment() {
                 )
             }
             tvTElectronics.setOnClickListener {
-                filterCategory = "electronics"
+                filterCategory = ELECTRONICS
                 setDefaultTextColor()
                 bottomSheetBinding.tvTElectronics.setTextColor(
                     ContextCompat.getColor(
