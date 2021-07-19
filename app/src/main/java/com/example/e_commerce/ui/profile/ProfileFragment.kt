@@ -26,5 +26,4 @@ class ProfileFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
 }

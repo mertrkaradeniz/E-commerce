@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.e_commerce.R
-import com.example.e_commerce.adapters.ProductAdapter
+import com.example.e_commerce.adapter.ProductAdapter
 import com.example.e_commerce.databinding.FragmentProductsBinding
 import com.example.e_commerce.databinding.ProductFilterBottomSheetBinding
 import com.example.e_commerce.ui.main.MainActivity
@@ -73,7 +73,6 @@ class ProductsFragment : Fragment() {
             false
         )
         productBottomSheetDialog.setContentView(bottomSheetBinding.root)
-        setupBottomSheetListeners()
         val frameLayout: FrameLayout? = productBottomSheetDialog.findViewById(
             com.google.android.material.R.id.design_bottom_sheet
         )
@@ -82,6 +81,7 @@ class ProductsFragment : Fragment() {
             setupFullHeight(frameLayout)
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
+        setupBottomSheetListeners()
         productBottomSheetDialog.show()
     }
 
@@ -159,6 +159,7 @@ class ProductsFragment : Fragment() {
                         .observe(viewLifecycleOwner, { result ->
                             result?.let { productAdapter.differ.submitList(it) }
                         })
+                    filterCategory = ""
                     productBottomSheetDialog.dismiss()
                 }
             }

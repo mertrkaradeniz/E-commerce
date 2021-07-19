@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupBottomNavigation()
-
     }
 
     private fun setupBottomNavigation() {
@@ -29,7 +28,6 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
-        
     }
 
     fun showProductIndicator() {
@@ -52,19 +50,19 @@ class MainActivity : AppCompatActivity() {
         binding.indicatorProfile.visibility = View.VISIBLE
     }
 
-    private fun setDefaultVisibilityOfIndicator() {
-        binding.indicatorProduct.visibility = View.INVISIBLE
-        binding.indicatorDashboard.visibility = View.INVISIBLE
-        binding.indicatorLabel.visibility = View.INVISIBLE
-        binding.indicatorProfile.visibility = View.INVISIBLE
-    }
-
     fun hideBottomNavigationView() {
         binding.bottomNavigationView.visibility = View.GONE
     }
 
     fun showBottomNavigationView() {
         binding.bottomNavigationView.visibility = View.VISIBLE
+    }
+
+    private fun setDefaultVisibilityOfIndicator() {
+        binding.indicatorProduct.visibility = View.INVISIBLE
+        binding.indicatorDashboard.visibility = View.INVISIBLE
+        binding.indicatorLabel.visibility = View.INVISIBLE
+        binding.indicatorProfile.visibility = View.INVISIBLE
     }
 
 }

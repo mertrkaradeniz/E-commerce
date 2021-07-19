@@ -1,4 +1,4 @@
-package com.example.e_commerce.adapters
+package com.example.e_commerce.adapter
 
 import android.graphics.Paint
 import android.view.LayoutInflater
@@ -8,11 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.size.Scale
-import coil.transform.CircleCropTransformation
-import coil.transform.RoundedCornersTransformation
 import com.example.e_commerce.data.model.Product
 import com.example.e_commerce.databinding.ProductRowLayoutBinding
-
 
 class ProductAdapter: RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
