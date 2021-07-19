@@ -1,6 +1,5 @@
 package com.example.e_commerce.ui.product
 
-import android.content.res.Resources
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,12 +10,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.e_commerce.R
 import com.example.e_commerce.adapters.ProductAdapter
 import com.example.e_commerce.databinding.FragmentProductsBinding
 import com.example.e_commerce.databinding.ProductFilterBottomSheetBinding
+import com.example.e_commerce.ui.main.MainActivity
 import com.example.e_commerce.util.Constants.ELECTRONICS
 import com.example.e_commerce.util.Constants.JEWELERY
 import com.example.e_commerce.util.Constants.MENS_CLOTHING
@@ -28,7 +27,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-
 
 @AndroidEntryPoint
 class ProductsFragment : Fragment() {
@@ -47,6 +45,10 @@ class ProductsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProductsBinding.inflate(inflater, container, false)
+        (requireActivity() as MainActivity).apply {
+            showBottomNavigationView()
+            showProductIndicator()
+        }
         setupRecyclerView()
         setupNetworkListener()
         setupSearch()
