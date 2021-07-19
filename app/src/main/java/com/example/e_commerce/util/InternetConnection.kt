@@ -1,9 +1,14 @@
 package com.example.e_commerce.util
 
 import android.content.Context
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.widget.TextView
+import androidx.annotation.ColorInt
+import com.google.android.material.snackbar.Snackbar
 
 object InternetConnection {
 

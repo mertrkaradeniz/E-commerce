@@ -42,7 +42,7 @@
             app:layout_constraintEnd_toEndOf="@id/guidelineHorizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imgProduct"
-            tools:text="Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops" />
+            tools:text="No. 1 Backpack, Fits 15 Laptops" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineHorizontal"

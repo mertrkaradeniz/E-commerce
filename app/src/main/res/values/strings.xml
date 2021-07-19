@@ -26,4 +26,7 @@
     <string name="giris_yap">Giriş yap</string>
     <string name="hesabin_yok_mu">Hesabın yok mu?</string>
     <string name="kaydol">Kaydol</string>
+    <string name="dashboard_fragment">Dashboard Fragment</string>
+    <string name="profile_fragment">Profile Fragment</string>
+    <string name="label_fragment">Label Fragment</string>
 </resources>

@@ -4,7 +4,11 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -24,6 +28,8 @@ import com.example.e_commerce.util.NetworkListener
 import com.example.e_commerce.util.Resource
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.snackbar.SnackbarContentLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -50,10 +56,14 @@ class ProductsFragment : Fragment() {
             showProductIndicator()
         }
         setupRecyclerView()
-        setupNetworkListener()
         setupSearch()
         setupListener()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupNetworkListener()
     }
 
     private fun setupListener() {
@@ -220,11 +230,16 @@ class ProductsFragment : Fragment() {
             networkListener.checkNetworkAvailability(requireContext())
                 .collect { status ->
                     if (!status) {
-                        Toast.makeText(
-                            requireContext(),
-                            "No Internet Connection.",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        val snackbar = Snackbar.make(binding.root, "Internet bağlantısı yok", Snackbar.LENGTH_INDEFINITE)
+                        val textView = snackbar.view.findViewById(R.id.snackbar_action) as TextView
+                        textView.isAllCaps = false
+                        val imgClose = ImageView(context)
+                        imgClose.scaleType = ImageView.ScaleType.CENTER_INSIDE
+                        val layoutImageParams = ViewGroup.LayoutParams(WRAP_CONTENT, MATCH_PARENT)
+                        imgClose.setImageResource(R.drawable.ic_close)
+                        (textView.parent as SnackbarContentLayout).addView(imgClose, layoutImageParams)
+                        imgClose.setOnClickListener { snackbar.dismiss() }
+                        snackbar.show()
                     }
                     getLocalData()
                 }
